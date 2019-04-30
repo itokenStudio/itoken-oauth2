@@ -1,0 +1,57 @@
+iToken:
+  version: 1.0.0-SNAPSHOT
+
+spring:
+  output:
+    ansi:
+      enabled: always
+  application:
+    name: itoken-oauth2
+  zipkin:
+    base-url: http://localhost:9411
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+
+    # 下面为连接池的补充设置，应用到上面所有数据源中
+    # 初始化大小，最小，最大
+    druid:
+      initialSize: 5
+      minIdle: 5
+      maxActive: 20
+      # 配置获取连接等待超时的时间
+      maxWait: 60000
+      # 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒
+      timeBetweenEvictionRunsMillis: 60000
+      # 配置一个连接在池中最小生存的时间，单位是毫秒
+      minEvictableIdleTimeMillis: 30000
+      connection-init-sqls: SET NAMES utf8mb4 COLLATE utf8mb4_unicode_ci
+      url: ${url}
+      username: ${username}
+      password: ${password}
+      driver-class-name: ${driver-class-name}
+  profiles:
+    include: db
+  cloud:
+    nacos:
+      config:
+        server-addr: 47.94.129.204:8848
+      discovery:
+        server-addr: 47.94.129.204:8848
+
+server:
+  port: 8771
+
+feign:
+  hystrix:
+    enabled: true
+
+mybatis-plus:
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: com.draper.itoken.oauth2.domain
+  global-config:
+    banner: false
+    db-config:
+      db-type: mysql
+
+
+

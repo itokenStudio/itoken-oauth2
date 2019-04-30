@@ -1,0 +1,11 @@
+version: "3.7"
+services:
+  itoken-oauth2:
+    restart: always
+    image: itoken-oauth2
+    container_name: itoken-oauth2
+    ports:
+      - 8771:8771
+
+
+
